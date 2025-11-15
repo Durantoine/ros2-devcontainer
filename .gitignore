@@ -34,8 +34,8 @@ Makefile
 .docker/
 
 # ===================================================================
-# Git Strategy: Each workspace is its own Git repository
+# Workspaces - Ignore build artifacts but keep source code
 # ===================================================================
-# Ignore all workspace contents (each workspace manages its own .git)
-# Users will initialize Git inside each workspace folder individually
-workspaces/*/
+workspaces/*/build/
+workspaces/*/install/
+workspaces/*/log/
