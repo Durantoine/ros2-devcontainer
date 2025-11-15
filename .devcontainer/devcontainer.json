@@ -1,0 +1,63 @@
+{
+  "name": "ROS2 Multi-Workspace Development",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "ros2",
+  "workspaceFolder": "/workspaces",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "dotjoshjohnson.xml",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": false,
+        "python.linting.flake8Enabled": true,
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true,
+        "files.associations": {
+          "*.launch": "xml",
+          "*.urdf": "xml",
+          "*.xacro": "xml",
+          "*.sdf": "xml"
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": ["-l"]
+          }
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [5900, 6080],
+  "portsAttributes": {
+    "5900": {
+      "label": "VNC",
+      "onAutoForward": "notify"
+    },
+    "6080": {
+      "label": "noVNC Web Interface",
+      "onAutoForward": "openBrowser",
+      "protocol": "http"
+    }
+  },
+
+  "postCreateCommand": "echo '🚀 ROS2 Multi-Workspace Dev Container Ready!' && echo '📦 Your workspaces are in /workspaces/' && echo '🌐 GUI Access: http://localhost:6080/vnc.html?autoconnect=true&resize=scale'",
+
+  "postStartCommand": "bash -c '/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf > /dev/null 2>&1 & sleep 2 && echo \"✅ VNC/noVNC services started via supervisord\"'",
+
+  "remoteUser": "root",
+  "features": {}
+}

@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# ROS2 build artifacts - each workspace has its own build/install/log
+**/build/
+**/install/
+**/log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+.pytest_cache/
+
+# C++
+*.o
+*.so
+*.a
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Docker volumes (si créés localement)
+.docker/
+
+# ===================================================================
+# Git Strategy: Each workspace is its own Git repository
+# ===================================================================
+# Ignore all workspace contents (each workspace manages its own .git)
+# Users will initialize Git inside each workspace folder individually
+workspaces/*/
