@@ -4,60 +4,36 @@ Docker-based ROS2 Humble development environment with Gazebo simulation and Foxg
 
 ## Requirements
 
-- Docker Desktop
+- Docker Desktop (or OrbStack)
 - [Foxglove Studio](https://foxglove.dev/download)
 
 ## Quick Start
 
-### Option 1: Using VSCode Dev Container (Recommended)
-
-1. Open project in VSCode:
-```bash
-code /Users/durantoine/Dev/ros2_devcontainer
-```
-
-2. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
-
-3. Type "Dev Containers: Reopen in Container" and press Enter
-
-4. VSCode will build and start the container automatically
-
-5. Open a terminal in VSCode (the terminal runs inside the container)
-
-### Option 2: Using Docker Compose
+Start the container:
 
 ```bash
 docker-compose up -d
+```
+
+Connect to the container:
+
+```bash
+docker exec -it ros2_dev bash
 ```
 
 ## Usage
 
 ### Example: Gazebo + TurtleBot3
 
-TurtleBot3 is included as a demonstration. To launch it:
+TurtleBot3 is included as a demonstration.
 
-**If using Dev Container:**
-```bash
-# Terminal runs inside container automatically
-export TURTLEBOT3_MODEL=burger
-ros2 launch /workspaces/turtlebot3_fixed.launch.py use_sim_time:=true
-```
-
-**If using Docker Compose:**
+**Terminal 1 - Launch simulation:**
 ```bash
 docker exec -it ros2_dev bash
-export TURTLEBOT3_MODEL=burger
-ros2 launch /workspaces/turtlebot3_fixed.launch.py use_sim_time:=true
+ros2 launch /workspaces/TP4/turtlebot3_fixed.launch.py use_sim_time:=true
 ```
 
-### Foxglove Bridge
-
-**If using Dev Container:**
-```bash
-ros2 launch foxglove_bridge foxglove_bridge_launch.xml
-```
-
-**If using Docker Compose:**
+**Terminal 2 - Launch Foxglove Bridge:**
 ```bash
 docker exec -it ros2_dev bash
 ros2 launch foxglove_bridge foxglove_bridge_launch.xml
@@ -89,8 +65,8 @@ pkill -f 'ros2 topic pub /cmd_vel'
 ```
 workspaces/
 ├── TP3/                    # Robot status publisher/subscriber
-├── TP4/                    # Empty workspace for new projects
-└── turtlebot3_fixed.launch.py
+└── TP4/
+    └── turtlebot3_fixed.launch.py  # TurtleBot3 demo
 ```
 
 ### Switch Workspace
@@ -246,10 +222,10 @@ Mac M3 (GPU)              Container (CPU)
 
 - `Dockerfile` - ROS2 Humble + Gazebo + TurtleBot3
 - `docker-compose.yml` - Container config
-- `.devcontainer/` - VSCode devcontainer
-- `workspaces/turtlebot3_fixed.launch.py` - TurtleBot3 launch with fixed frame_prefix
+- `workspace_helpers.sh` - Helper commands for workspace management
+- `workspaces/TP4/turtlebot3_fixed.launch.py` - TurtleBot3 launch with fixed frame_prefix
 - `workspaces/TP3/` - Robot status publisher/subscriber project
-- `workspaces/TP4/` - Empty workspace for new projects
+- `workspaces/TP4/` - TurtleBot3 demo workspace
 
 ## Notes
 
@@ -280,9 +256,15 @@ ps aux | grep robot_state_publisher
 pkill -f robot_state_publisher
 ```
 
-### TF frame warnings in Foxglove
+### TF frame warnings in Foxglove (imu_link, caster_back_link)
 
-Make sure you're using `turtlebot3_fixed.launch.py` instead of the official `turtlebot3_gazebo` launch files.
+Two warnings are expected and normal:
+- **`imu_link`** - IMU sensor has no visual geometry in URDF
+- **`caster_back_link`** - Caster wheel has no visual geometry in URDF
+
+These are cosmetic warnings only. The robot functions correctly.
+
+Make sure you're using `turtlebot3_fixed.launch.py` for proper frame prefix configuration.
 
 ### Foxglove can't connect
 

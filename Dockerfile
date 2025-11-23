@@ -11,8 +11,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /workspaces
 
+# Copy workspace helpers
+COPY workspace_helpers.sh /workspace_helpers.sh
+
 # ROS2 configuration
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
-    echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+    echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc && \
+    echo "source /workspace_helpers.sh" >> ~/.bashrc
 
 CMD ["/bin/bash"]
