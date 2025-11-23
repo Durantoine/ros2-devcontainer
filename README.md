@@ -9,6 +9,23 @@ Docker-based ROS2 Humble for Mac M3 with Gazebo and Foxglove.
 
 ## Quick Start
 
+### Option 1: Using VSCode Dev Container (Recommended)
+
+1. Open project in VSCode:
+```bash
+code /Users/durantoine/Dev/ros2_devcontainer
+```
+
+2. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
+
+3. Type "Dev Containers: Reopen in Container" and press Enter
+
+4. VSCode will build and start the container automatically
+
+5. Open a terminal in VSCode (the terminal runs inside the container)
+
+### Option 2: Using Docker Compose
+
 ```bash
 docker-compose up -d
 ```
@@ -17,6 +34,14 @@ docker-compose up -d
 
 ### Gazebo + TurtleBot3
 
+**If using Dev Container:**
+```bash
+# Terminal runs inside container automatically
+export TURTLEBOT3_MODEL=burger
+ros2 launch /workspaces/turtlebot3_fixed.launch.py use_sim_time:=true
+```
+
+**If using Docker Compose:**
 ```bash
 docker exec -it ros2_dev bash
 export TURTLEBOT3_MODEL=burger
@@ -25,6 +50,12 @@ ros2 launch /workspaces/turtlebot3_fixed.launch.py use_sim_time:=true
 
 ### Foxglove Bridge
 
+**If using Dev Container:**
+```bash
+ros2 launch foxglove_bridge foxglove_bridge_launch.xml
+```
+
+**If using Docker Compose:**
 ```bash
 docker exec -it ros2_dev bash
 ros2 launch foxglove_bridge foxglove_bridge_launch.xml
@@ -77,9 +108,23 @@ docker-compose restart
 
 ### Build a Workspace
 
+**Using workspace helpers (recommended):**
+
+First, source the helpers in your container terminal:
 ```bash
-docker exec -it ros2_dev bash
-cd /workspaces/TP3  # or TP4
+source /workspace_helpers.sh
+```
+
+Then use convenient commands:
+```bash
+lsws                 # List all workspaces
+ws TP3               # Switch to TP3 workspace
+bws TP3              # Build TP3 workspace
+```
+
+**Manual method:**
+```bash
+cd /workspaces/TP3
 colcon build
 source install/setup.bash
 ```
