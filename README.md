@@ -1,6 +1,6 @@
 # ROS2 Development Environment
 
-Docker-based ROS2 Humble for Mac M3 with Gazebo and Foxglove.
+Docker-based ROS2 Humble development environment with Gazebo simulation and Foxglove visualization. TurtleBot3 is included as an example.
 
 ## Requirements
 
@@ -32,7 +32,9 @@ docker-compose up -d
 
 ## Usage
 
-### Gazebo + TurtleBot3
+### Example: Gazebo + TurtleBot3
+
+TurtleBot3 is included as a demonstration. To launch it:
 
 **If using Dev Container:**
 ```bash
@@ -251,11 +253,13 @@ Mac M3 (GPU)              Container (CPU)
 
 ## Notes
 
-### Frame Prefix Fix
+### Frame Prefix Fix (TurtleBot3 Example)
 
-Official turtlebot3_gazebo has bug with `frame_prefix: '/'` causing TF frames to have leading slashes (e.g., `/base_footprint` instead of `base_footprint`). This breaks Foxglove visualization.
+The official turtlebot3_gazebo package has a bug with `frame_prefix: '/'` causing TF frames to have leading slashes (e.g., `/base_footprint` instead of `base_footprint`). This is NOT a configuration issue with this setup, but a bug in the official ROS2 package that affects all users.
 
 **Solution**: Custom launch file `turtlebot3_fixed.launch.py` with `frame_prefix: ''`
+
+This fix is only needed for TurtleBot3. Your own robot projects won't need this fix.
 
 ### GPU Usage
 

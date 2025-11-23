@@ -1,4 +1,4 @@
-xFROM osrf/ros:humble-desktop
+FROM osrf/ros:humble-desktop
 
 # Install ROS2 packages
 RUN apt-get update && apt-get install -y \

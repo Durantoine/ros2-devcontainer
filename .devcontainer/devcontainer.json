@@ -1,8 +1,10 @@
 {
   "name": "ROS2 Multi-Workspace Development",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "ros2",
+  "image": "local/ros2-m3:latest",
   "workspaceFolder": "/workspaces",
+  "workspaceMount": "source=${localWorkspaceFolder}/workspaces,target=/workspaces,type=bind",
+  "runArgs": ["--name=ros2_dev", "-e", "ROS_DOMAIN_ID=0"],
+  "forwardPorts": [8765, 8000],
 
   "customizations": {
     "vscode": {
