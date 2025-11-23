@@ -41,23 +41,7 @@
     }
   },
 
-  "forwardPorts": [5900, 6080],
-  "portsAttributes": {
-    "5900": {
-      "label": "VNC",
-      "onAutoForward": "notify"
-    },
-    "6080": {
-      "label": "noVNC Web Interface",
-      "onAutoForward": "openBrowser",
-      "protocol": "http"
-    }
-  },
+  "postCreateCommand": "echo '🚀 ROS2 Dev Container Ready with OrbStack!' && echo '📦 Workspaces: /workspaces/' && echo '🎮 Launch Gazebo: ros2 launch turtlebot3_gazebo empty_world.launch.py'",
 
-  "postCreateCommand": "echo '🚀 ROS2 Multi-Workspace Dev Container Ready!' && echo '📦 Your workspaces are in /workspaces/' && echo '🌐 GUI Access: http://localhost:6080/vnc.html?autoconnect=true&resize=scale'",
-
-  "postStartCommand": "bash -c '/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf > /dev/null 2>&1 & sleep 2 && echo \"✅ VNC/noVNC services started via supervisord\"'",
-
-  "remoteUser": "root",
-  "features": {}
+  "remoteUser": "root"
 }

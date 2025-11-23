@@ -9,21 +9,10 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "5900:5900"  # VNC port
-      - "6080:6080"  # noVNC web interface
+      - "8765:8765"
+      - "8000:8000"
     environment:
-      - DISPLAY=:0
-      - QT_X11_NO_MITSHM=1
       - ROS_DOMAIN_ID=0
     volumes:
-      # Mount only specific files/folders to avoid duplication
       - ./workspaces:/workspaces
-      - ./workspace_helpers.sh:/workspace_helpers.sh
-      - ./.devcontainer:/root/.devcontainer
-    command: sleep infinity
-    networks:
-      - ros2_network
-
-networks:
-  ros2_network:
-    driver: bridge
+    network_mode: bridge
