@@ -9,8 +9,9 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - "8765:8765"
+      - "8765:8765"  # Foxglove Bridge (Gazebo)
       - "8000:8000"
+      - "6080:6080"  # noVNC (RViz)
     environment:
       - ROS_DOMAIN_ID=0
     volumes:

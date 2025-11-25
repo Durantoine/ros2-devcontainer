@@ -1,11 +1,15 @@
 # ROS2 Development Environment
 
-Docker-based ROS2 Humble development environment with Gazebo simulation and Foxglove visualization. TurtleBot3 is included as an example.
+Docker-based ROS2 Humble development environment with multiple visualization options:
+- **noVNC** - Browser-based GUI for RViz (URDF visualization)
+- **Foxglove Studio** - WebGL visualization for Gazebo simulations
+
+TurtleBot3 is included as an example.
 
 ## Requirements
 
 - Docker Desktop (or OrbStack)
-- [Foxglove Studio](https://foxglove.dev/download)
+- [Foxglove Studio](https://foxglove.dev/download) (for Gazebo simulations)
 
 ## Quick Start
 
@@ -22,6 +26,36 @@ docker exec -it ros2_dev bash
 ```
 
 ## Usage
+
+### Visualization Options
+
+This environment provides two visualization methods:
+
+#### 1. noVNC (for RViz - URDF visualization)
+
+Access RViz through your browser at: **http://localhost:6080**
+
+Perfect for:
+- Visualizing robot URDF models
+- Robot description packages
+- `joint_state_publisher_gui`
+
+Example:
+```bash
+docker exec -it ros2_dev bash
+ros2 launch robot_description_pkg display.launch.py
+```
+
+Then open http://localhost:6080 in your browser to see RViz.
+
+#### 2. Foxglove Studio (for Gazebo simulations)
+
+Use native Foxglove Studio app with GPU acceleration.
+
+Perfect for:
+- Gazebo simulations
+- Real-time robot telemetry
+- Performance-critical 3D visualization
 
 ### Example: Gazebo + TurtleBot3
 
